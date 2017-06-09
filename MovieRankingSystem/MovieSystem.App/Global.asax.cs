@@ -17,7 +17,6 @@ namespace MovieSystem.App
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
             // Initialize the product database.
-            //Database.SetInitializer(new MovieDatabaseInitializer());
             Database.SetInitializer(new MigrateDatabaseToLatestVersion<MovieContext, Configuration>());
         }
     }

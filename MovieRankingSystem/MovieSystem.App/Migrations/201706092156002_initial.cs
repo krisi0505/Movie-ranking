@@ -3,7 +3,7 @@ namespace MovieSystem.App.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class Initial : DbMigration
+    public partial class initial : DbMigration
     {
         public override void Up()
         {
@@ -40,11 +40,8 @@ namespace MovieSystem.App.Migrations
                     {
                         Id = c.Int(nullable: false, identity: true),
                         Name = c.String(nullable: false, maxLength: 50),
-                        Movie_Id = c.Int(),
                     })
-                .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.Movies", t => t.Movie_Id)
-                .Index(t => t.Movie_Id);
+                .PrimaryKey(t => t.Id);
             
             CreateTable(
                 "dbo.Ranks",
@@ -78,20 +75,36 @@ namespace MovieSystem.App.Migrations
                 .Index(t => t.Movie_Id)
                 .Index(t => t.Actor_Id);
             
+            CreateTable(
+                "dbo.GenreMovies",
+                c => new
+                    {
+                        Genre_Id = c.Int(nullable: false),
+                        Movie_Id = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => new { t.Genre_Id, t.Movie_Id })
+                .ForeignKey("dbo.Genres", t => t.Genre_Id, cascadeDelete: true)
+                .ForeignKey("dbo.Movies", t => t.Movie_Id, cascadeDelete: true)
+                .Index(t => t.Genre_Id)
+                .Index(t => t.Movie_Id);
+            
         }
         
         public override void Down()
         {
             DropForeignKey("dbo.Movies", "BookId", "dbo.Books");
             DropForeignKey("dbo.Movies", "Rank_Id", "dbo.Ranks");
-            DropForeignKey("dbo.Genres", "Movie_Id", "dbo.Movies");
+            DropForeignKey("dbo.GenreMovies", "Movie_Id", "dbo.Movies");
+            DropForeignKey("dbo.GenreMovies", "Genre_Id", "dbo.Genres");
             DropForeignKey("dbo.MovieActors", "Actor_Id", "dbo.Actors");
             DropForeignKey("dbo.MovieActors", "Movie_Id", "dbo.Movies");
+            DropIndex("dbo.GenreMovies", new[] { "Movie_Id" });
+            DropIndex("dbo.GenreMovies", new[] { "Genre_Id" });
             DropIndex("dbo.MovieActors", new[] { "Actor_Id" });
             DropIndex("dbo.MovieActors", new[] { "Movie_Id" });
-            DropIndex("dbo.Genres", new[] { "Movie_Id" });
             DropIndex("dbo.Movies", new[] { "Rank_Id" });
             DropIndex("dbo.Movies", new[] { "BookId" });
+            DropTable("dbo.GenreMovies");
             DropTable("dbo.MovieActors");
             DropTable("dbo.Books");
             DropTable("dbo.Ranks");

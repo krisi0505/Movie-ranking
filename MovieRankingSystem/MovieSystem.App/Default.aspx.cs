@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MovieSystem.App.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -12,6 +13,13 @@ namespace MovieSystem.App
         protected void Page_Load(object sender, EventArgs e)
         {
 
+        }
+
+        public IQueryable<Movie> moviesGrid_GetData()
+        {
+            MovieContext db = new MovieContext();
+            var query = db.Movies;
+            return query;
         }
     }
 }
