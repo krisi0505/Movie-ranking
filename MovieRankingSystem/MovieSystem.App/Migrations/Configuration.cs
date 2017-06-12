@@ -47,7 +47,7 @@ namespace MovieSystem.App.Migrations
                     Rank = new Rank { Id = 12, Name = "Super" }
                 });
 
-
+            context.SaveChanges();
 
 
 
