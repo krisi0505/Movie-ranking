@@ -1,5 +1,6 @@
 ﻿using Microsoft.Owin;
 using Owin;
+using System.Data.SQLite;
 
 [assembly: OwinStartupAttribute(typeof(MovieSystem.App.Startup))]
 namespace MovieSystem.App

@@ -48,12 +48,39 @@
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.3\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Mono.Security, Version=4.0.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756, processorArchitecture=MSIL">
+      <HintPath>..\packages\Npgsql.2.2.7\lib\net45\Mono.Security.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Npgsql, Version=2.2.7.0, Culture=neutral, PublicKeyToken=5d8b90d52f46fda7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Npgsql.2.2.7\lib\net45\Npgsql.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Npgsql.EntityFramework, Version=2.2.7.0, Culture=neutral, PublicKeyToken=5d8b90d52f46fda7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Npgsql.EntityFramework.2.2.7\lib\net45\Npgsql.EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Data.SQLite, Version=1.0.105.2, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Data.SQLite.Core.1.0.105.2\lib\net451\System.Data.SQLite.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Data.SQLite.EF6, Version=1.0.105.2, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Data.SQLite.EF6.1.0.105.2\lib\net451\System.Data.SQLite.EF6.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Data.SQLite.Linq, Version=1.0.105.2, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Data.SQLite.Linq.1.0.105.2\lib\net451\System.Data.SQLite.Linq.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Threading.Tasks.Extensions, Version=4.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Threading.Tasks.Extensions.4.3.0\lib\portable-net45+win8+wp8+wpa81\System.Threading.Tasks.Extensions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Drawing" />
@@ -175,6 +202,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="About.aspx" />
     <Content Include="Account\AddPhoneNumber.aspx" />
     <Content Include="Account\Confirm.aspx" />
     <Content Include="Account\Forgot.aspx" />
@@ -190,34 +218,11 @@
     <Content Include="Account\ResetPasswordConfirmation.aspx" />
     <Content Include="Account\TwoFactorAuthenticationSignIn.aspx" />
     <Content Include="Account\VerifyPhoneNumber.aspx" />
-    <Content Include="AddMovie.aspx" />
+    <Content Include="Contact.aspx" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Site.css" />
     <Content Include="Default.aspx" />
-    <Content Include="DynamicData\EntityTemplates\Default.ascx" />
-    <Content Include="DynamicData\EntityTemplates\Default_Edit.ascx" />
-    <Content Include="DynamicData\EntityTemplates\Default_Insert.ascx" />
-    <Content Include="DynamicData\FieldTemplates\Boolean.ascx" />
-    <Content Include="DynamicData\FieldTemplates\Boolean_Edit.ascx" />
-    <Content Include="DynamicData\FieldTemplates\Children.ascx" />
-    <Content Include="DynamicData\FieldTemplates\Children_Insert.ascx" />
-    <Content Include="DynamicData\FieldTemplates\DateTime.ascx" />
-    <Content Include="DynamicData\FieldTemplates\DateTime_Edit.ascx" />
-    <Content Include="DynamicData\FieldTemplates\Decimal_Edit.ascx" />
-    <Content Include="DynamicData\FieldTemplates\EmailAddress.ascx" />
-    <Content Include="DynamicData\FieldTemplates\Enumeration.ascx" />
-    <Content Include="DynamicData\FieldTemplates\Enumeration_Edit.ascx" />
-    <Content Include="DynamicData\FieldTemplates\ForeignKey.ascx" />
-    <Content Include="DynamicData\FieldTemplates\ForeignKey_Edit.ascx" />
-    <Content Include="DynamicData\FieldTemplates\Integer_Edit.ascx" />
-    <Content Include="DynamicData\FieldTemplates\ManyToMany.ascx" />
-    <Content Include="DynamicData\FieldTemplates\ManyToMany_Edit.ascx" />
-    <Content Include="DynamicData\FieldTemplates\MultilineText_Edit.ascx" />
-    <Content Include="DynamicData\FieldTemplates\Text.ascx" />
-    <Content Include="DynamicData\FieldTemplates\Text_Edit.ascx" />
-    <Content Include="DynamicData\FieldTemplates\Url.ascx" />
-    <Content Include="DynamicData\FieldTemplates\Url_Edit.ascx" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -371,17 +376,24 @@
     <Compile Include="Account\VerifyPhoneNumber.aspx.designer.cs">
       <DependentUpon>VerifyPhoneNumber.aspx</DependentUpon>
     </Compile>
-    <Compile Include="AddMovie.aspx.cs">
-      <DependentUpon>AddMovie.aspx</DependentUpon>
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="About.aspx.cs">
+      <DependentUpon>About.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="AddMovie.aspx.designer.cs">
-      <DependentUpon>AddMovie.aspx</DependentUpon>
+    <Compile Include="About.aspx.designer.cs">
+      <DependentUpon>About.aspx</DependentUpon>
     </Compile>
-    <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Contact.aspx.cs">
+      <DependentUpon>Contact.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Contact.aspx.designer.cs">
+      <DependentUpon>Contact.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -389,181 +401,23 @@
     <Compile Include="Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
-    <Compile Include="DynamicData\EntityTemplates\Default.ascx.cs">
-      <DependentUpon>Default.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="DynamicData\EntityTemplates\Default.ascx.designer.cs">
-      <DependentUpon>Default.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="DynamicData\EntityTemplates\Default_Edit.ascx.cs">
-      <DependentUpon>Default_Edit.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="DynamicData\EntityTemplates\Default_Edit.ascx.designer.cs">
-      <DependentUpon>Default_Edit.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="DynamicData\EntityTemplates\Default_Insert.ascx.cs">
-      <DependentUpon>Default_Insert.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="DynamicData\EntityTemplates\Default_Insert.ascx.designer.cs">
-      <DependentUpon>Default_Insert.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="DynamicData\FieldTemplates\Boolean.ascx.cs">
-      <DependentUpon>Boolean.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="DynamicData\FieldTemplates\Boolean.ascx.designer.cs">
-      <DependentUpon>Boolean.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="DynamicData\FieldTemplates\Boolean_Edit.ascx.cs">
-      <DependentUpon>Boolean_Edit.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="DynamicData\FieldTemplates\Boolean_Edit.ascx.designer.cs">
-      <DependentUpon>Boolean_Edit.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="DynamicData\FieldTemplates\Children.ascx.cs">
-      <DependentUpon>Children.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="DynamicData\FieldTemplates\Children.ascx.designer.cs">
-      <DependentUpon>Children.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="DynamicData\FieldTemplates\Children_Insert.ascx.cs">
-      <DependentUpon>Children_Insert.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="DynamicData\FieldTemplates\Children_Insert.ascx.designer.cs">
-      <DependentUpon>Children_Insert.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="DynamicData\FieldTemplates\DateTime.ascx.cs">
-      <DependentUpon>DateTime.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="DynamicData\FieldTemplates\DateTime.ascx.designer.cs">
-      <DependentUpon>DateTime.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="DynamicData\FieldTemplates\DateTime_Edit.ascx.cs">
-      <DependentUpon>DateTime_Edit.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="DynamicData\FieldTemplates\DateTime_Edit.ascx.designer.cs">
-      <DependentUpon>DateTime_Edit.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="DynamicData\FieldTemplates\Decimal_Edit.ascx.cs">
-      <DependentUpon>Decimal_Edit.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="DynamicData\FieldTemplates\Decimal_Edit.ascx.designer.cs">
-      <DependentUpon>Decimal_Edit.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="DynamicData\FieldTemplates\EmailAddress.ascx.cs">
-      <DependentUpon>EmailAddress.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="DynamicData\FieldTemplates\EmailAddress.ascx.designer.cs">
-      <DependentUpon>EmailAddress.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="DynamicData\FieldTemplates\Enumeration.ascx.cs">
-      <DependentUpon>Enumeration.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="DynamicData\FieldTemplates\Enumeration.ascx.designer.cs">
-      <DependentUpon>Enumeration.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="DynamicData\FieldTemplates\Enumeration_Edit.ascx.cs">
-      <DependentUpon>Enumeration_Edit.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="DynamicData\FieldTemplates\Enumeration_Edit.ascx.designer.cs">
-      <DependentUpon>Enumeration_Edit.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="DynamicData\FieldTemplates\ForeignKey.ascx.cs">
-      <DependentUpon>ForeignKey.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="DynamicData\FieldTemplates\ForeignKey.ascx.designer.cs">
-      <DependentUpon>ForeignKey.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="DynamicData\FieldTemplates\ForeignKey_Edit.ascx.cs">
-      <DependentUpon>ForeignKey_Edit.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="DynamicData\FieldTemplates\ForeignKey_Edit.ascx.designer.cs">
-      <DependentUpon>ForeignKey_Edit.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="DynamicData\FieldTemplates\Integer_Edit.ascx.cs">
-      <DependentUpon>Integer_Edit.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="DynamicData\FieldTemplates\Integer_Edit.ascx.designer.cs">
-      <DependentUpon>Integer_Edit.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="DynamicData\FieldTemplates\ManyToMany.ascx.cs">
-      <DependentUpon>ManyToMany.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="DynamicData\FieldTemplates\ManyToMany.ascx.designer.cs">
-      <DependentUpon>ManyToMany.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="DynamicData\FieldTemplates\ManyToMany_Edit.ascx.cs">
-      <DependentUpon>ManyToMany_Edit.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="DynamicData\FieldTemplates\ManyToMany_Edit.ascx.designer.cs">
-      <DependentUpon>ManyToMany_Edit.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="DynamicData\FieldTemplates\MultilineText_Edit.ascx.cs">
-      <DependentUpon>MultilineText_Edit.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="DynamicData\FieldTemplates\MultilineText_Edit.ascx.designer.cs">
-      <DependentUpon>MultilineText_Edit.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="DynamicData\FieldTemplates\Text.ascx.cs">
-      <DependentUpon>Text.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="DynamicData\FieldTemplates\Text.ascx.designer.cs">
-      <DependentUpon>Text.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="DynamicData\FieldTemplates\Text_Edit.ascx.cs">
-      <DependentUpon>Text_Edit.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="DynamicData\FieldTemplates\Text_Edit.ascx.designer.cs">
-      <DependentUpon>Text_Edit.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="DynamicData\FieldTemplates\Url.ascx.cs">
-      <DependentUpon>Url.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="DynamicData\FieldTemplates\Url.ascx.designer.cs">
-      <DependentUpon>Url.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="DynamicData\FieldTemplates\Url_Edit.ascx.cs">
-      <DependentUpon>Url_Edit.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="DynamicData\FieldTemplates\Url_Edit.ascx.designer.cs">
-      <DependentUpon>Url_Edit.ascx</DependentUpon>
-    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201706092156002_initial.cs" />
-    <Compile Include="Migrations\201706092156002_initial.Designer.cs">
-      <DependentUpon>201706092156002_initial.cs</DependentUpon>
+    <Compile Include="MigrationsDirectory\PostgreConfig\201706121545148_initial.cs" />
+    <Compile Include="MigrationsDirectory\PostgreConfig\201706121545148_initial.Designer.cs">
+      <DependentUpon>201706121545148_initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Migrations\PostgreConfig\Configuration.cs" />
     <Compile Include="Models\Actor.cs" />
     <Compile Include="Models\Book.cs" />
     <Compile Include="Models\Genre.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Movie.cs" />
     <Compile Include="Models\MovieContext.cs" />
+    <Compile Include="Models\MovieContextPostgre.cs" />
+    <Compile Include="Models\MovieDatabaseInitializer.cs" />
     <Compile Include="Models\Rank.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Site.Master.cs">
@@ -603,8 +457,8 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201706092156002_initial.resx">
-      <DependentUpon>201706092156002_initial.cs</DependentUpon>
+    <EmbeddedResource Include="MigrationsDirectory\PostgreConfig\201706121545148_initial.resx">
+      <DependentUpon>201706121545148_initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
@@ -638,7 +492,9 @@
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\Microsoft.Net.Compilers.1.3.2\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Net.Compilers.1.3.2\build\Microsoft.Net.Compilers.props'))" />
     <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.3\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.3\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+    <Error Condition="!Exists('..\packages\System.Data.SQLite.Core.1.0.105.2\build\net451\System.Data.SQLite.Core.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\System.Data.SQLite.Core.1.0.105.2\build\net451\System.Data.SQLite.Core.targets'))" />
   </Target>
+  <Import Project="..\packages\System.Data.SQLite.Core.1.0.105.2\build\net451\System.Data.SQLite.Core.targets" Condition="Exists('..\packages\System.Data.SQLite.Core.1.0.105.2\build\net451\System.Data.SQLite.Core.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
