@@ -1,14 +1,14 @@
-namespace MovieSystem.App.Migrations
+namespace MovieSystem.App.Migrations.PostgreConfig
 {
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class Initial : DbMigration
+    public partial class initial : DbMigration
     {
         public override void Up()
         {
             CreateTable(
-                "dbo.Actors",
+                "public.Actors",
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
@@ -17,25 +17,25 @@ namespace MovieSystem.App.Migrations
                 .PrimaryKey(t => t.Id);
             
             CreateTable(
-                "dbo.Movies",
+                "public.Movies",
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
                         Title = c.String(nullable: false, maxLength: 100),
                         Director = c.String(nullable: false, maxLength: 100),
-                        Description = c.String(nullable: false),
+                        Description = c.String(nullable: false, maxLength: 10000),
                         BasedOnBook = c.Boolean(nullable: false),
                         BookId = c.Int(),
                         Rank_Id = c.Int(),
                     })
                 .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.Ranks", t => t.Rank_Id)
-                .ForeignKey("dbo.Books", t => t.BookId)
+                .ForeignKey("public.Ranks", t => t.Rank_Id)
+                .ForeignKey("public.Books", t => t.BookId)
                 .Index(t => t.BookId)
                 .Index(t => t.Rank_Id);
             
             CreateTable(
-                "dbo.Genres",
+                "public.Genres",
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
@@ -43,11 +43,11 @@ namespace MovieSystem.App.Migrations
                         Movie_Id = c.Int(),
                     })
                 .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.Movies", t => t.Movie_Id)
+                .ForeignKey("public.Movies", t => t.Movie_Id)
                 .Index(t => t.Movie_Id);
             
             CreateTable(
-                "dbo.Ranks",
+                "public.Ranks",
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
@@ -56,7 +56,7 @@ namespace MovieSystem.App.Migrations
                 .PrimaryKey(t => t.Id);
             
             CreateTable(
-                "dbo.Books",
+                "public.Books",
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
@@ -66,15 +66,15 @@ namespace MovieSystem.App.Migrations
                 .PrimaryKey(t => t.Id);
             
             CreateTable(
-                "dbo.MovieActors",
+                "public.MovieActors",
                 c => new
                     {
                         Movie_Id = c.Int(nullable: false),
                         Actor_Id = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => new { t.Movie_Id, t.Actor_Id })
-                .ForeignKey("dbo.Movies", t => t.Movie_Id, cascadeDelete: true)
-                .ForeignKey("dbo.Actors", t => t.Actor_Id, cascadeDelete: true)
+                .ForeignKey("public.Movies", t => t.Movie_Id, cascadeDelete: true)
+                .ForeignKey("public.Actors", t => t.Actor_Id, cascadeDelete: true)
                 .Index(t => t.Movie_Id)
                 .Index(t => t.Actor_Id);
             
@@ -82,22 +82,22 @@ namespace MovieSystem.App.Migrations
         
         public override void Down()
         {
-            DropForeignKey("dbo.Movies", "BookId", "dbo.Books");
-            DropForeignKey("dbo.Movies", "Rank_Id", "dbo.Ranks");
-            DropForeignKey("dbo.Genres", "Movie_Id", "dbo.Movies");
-            DropForeignKey("dbo.MovieActors", "Actor_Id", "dbo.Actors");
-            DropForeignKey("dbo.MovieActors", "Movie_Id", "dbo.Movies");
-            DropIndex("dbo.MovieActors", new[] { "Actor_Id" });
-            DropIndex("dbo.MovieActors", new[] { "Movie_Id" });
-            DropIndex("dbo.Genres", new[] { "Movie_Id" });
-            DropIndex("dbo.Movies", new[] { "Rank_Id" });
-            DropIndex("dbo.Movies", new[] { "BookId" });
-            DropTable("dbo.MovieActors");
-            DropTable("dbo.Books");
-            DropTable("dbo.Ranks");
-            DropTable("dbo.Genres");
-            DropTable("dbo.Movies");
-            DropTable("dbo.Actors");
+            DropForeignKey("public.Movies", "BookId", "public.Books");
+            DropForeignKey("public.Movies", "Rank_Id", "public.Ranks");
+            DropForeignKey("public.Genres", "Movie_Id", "public.Movies");
+            DropForeignKey("public.MovieActors", "Actor_Id", "public.Actors");
+            DropForeignKey("public.MovieActors", "Movie_Id", "public.Movies");
+            DropIndex("public.MovieActors", new[] { "Actor_Id" });
+            DropIndex("public.MovieActors", new[] { "Movie_Id" });
+            DropIndex("public.Genres", new[] { "Movie_Id" });
+            DropIndex("public.Movies", new[] { "Rank_Id" });
+            DropIndex("public.Movies", new[] { "BookId" });
+            DropTable("public.MovieActors");
+            DropTable("public.Books");
+            DropTable("public.Ranks");
+            DropTable("public.Genres");
+            DropTable("public.Movies");
+            DropTable("public.Actors");
         }
     }
 }
